@@ -17,9 +17,9 @@ Course Outline:
 * Integration with JQuery
 * Configuring ESLint
 
-## Configuration/Setup
+# Setup and Itegration
 
-### Build folder structure:
+## Build folder structure:
 Set up folder structure as follows.  Use commit labeled: 'first commit' for initial file state. 
 ```
     root-|
@@ -28,7 +28,7 @@ Set up folder structure as follows.  Use commit labeled: 'first commit' for init
                |-- index.js
          |-- index.html
 ```
-### Install Dependencies:
+## Install Dependencies:
 
 Initialize npm package manager:
 ```
@@ -41,7 +41,7 @@ npm install -D webpack webpack-cli
 
 **note: be sure to add /node_modules to .gitignore if using source control*
 
-### Integrating Webpack:
+## Integrating Webpack:
 
 Webpack allow the use of **ES6 Import Modules**.  Once refactoring the javascript code to implement ES6 functionality, webpack is ready to use. With no configuartion to this point, execute the following command in the termal to build the Webpack bundle:
 
@@ -52,7 +52,7 @@ Though a configuration warning is displayed, Webpack creates a folder named ```d
 
 **note: be sure to add /dist to .gitignore if using source control*
 
-### Configure Webpack
+## Configure Webpack
 
 Create a javascript file named ```webpack.config.js``` inside the root folder.  This file will hold all configuration for Webpack.  Here is a basic configuration file which is a JavaScript Module.  Note the use of ```Common.js``` imports.  This is required only for the Webpack configuration file.  All other files use ECMAScript6 Imports. 
 ```
@@ -72,6 +72,19 @@ Inside the ```index.html``` file, point the script src to this ```bundle.js``` f
     <script src="./dist/bundle.js"></script>
 </body>
 ```
+
+# Asset Modules
+
+* Asset Resource - for large files (generates a seperate file)
+* Asset Inline   - for smaller files (creates inline code (base64) to be added directly to ```bundle.js```)
+* Asset - using webpack config set to automatic generation of resource or inline type asset
+* Asset Source - add string of text to ```bundel.js```
+
+## Asset Resource:
+Import images
+
+
+
 
 
 
