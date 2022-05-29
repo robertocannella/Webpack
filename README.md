@@ -20,7 +20,7 @@ Course Outline:
 ## Configuration/Setup
 
 ### Build folder structure:
-Set up folder structure as follows.  Use commit labeled: 'setup-conifig' for initial file state. 
+Set up folder structure as follows.  Use commit labeled: 'first commit' for initial file state. 
 ```
     root-|
          |-> src
@@ -39,7 +39,19 @@ Install Webpack and Webpack CLI as a development dependencies:
 npm install -D webpack webpack-cli
 ```
 
-*note: be sure to add /node_modules to .gitignore if using source control
+**note: be sure to add /node_modules to .gitignore if using source control*
+
+### Integrating Webpack:
+
+Webpack allow the use of **ES6 Import Modules**.  Once refactoring the javascript code to implement ES6 functionality, webpack is ready to use. With no configuartion to this point, execute the following command in the termal to build the Webpack bundle:
+
+```
+npx webpack
+```
+Though a warning is display, Webpack create a folder ```dist``` which includes a ```main.js``` file.
+
+**note: be sure to add /dist to .gitignore if using source control*
+
 
 
 
