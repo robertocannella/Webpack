@@ -75,13 +75,29 @@ Inside the ```index.html``` file, point the script src to this ```bundle.js``` f
 
 # Asset Modules
 
-* Asset Resource - for large files (generates a seperate file)
-* Asset Inline   - for smaller files (creates inline code (base64) to be added directly to ```bundle.js```)
-* Asset - using webpack config set to automatic generation of resource or inline type asset
-* Asset Source - add string of text to ```bundel.js```
+### Types of asset imports: 
+
+* asset/resource - for large files (generates a seperate file)
+* asset/inline   - for smaller files (creates inline code (base64) to be added directly to ```bundle.js```)
+* asset - using webpack config set to automatic generation of resource or inline type asset
+* asset/source - add string of text to ```bundel.js```
 
 ## Asset Resource:
-Import images
+Importing images
+
+For webpack to import images (or any file type), a rule needs to be added to the ```webpack.config.js``` file:
+
+```
+module: {
+    rules: [
+        {
+            test: /\.(png|jpeg)$/,
+            type: 'asset/resource'
+        }
+    ]
+```
+Here, the module property takes a ```rules``` value which declares how webpack handles importing certain file types(using regex). 
+
 
 
 
