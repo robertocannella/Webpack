@@ -1,4 +1,5 @@
 const path = require('path'); // <-- needs to be common.js style import true as of Webpack 5.  
+const TerserPlugin = require('terser-webpack-plugin')
 
 module.exports = {
     entry: './src/index.js', // <-- Webpack will start from this file when running the build process.
@@ -58,5 +59,8 @@ module.exports = {
                 }
             }
         ]
-    }
+    },
+    plugins : [
+        new TerserPlugin()
+    ]
 }

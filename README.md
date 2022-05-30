@@ -205,6 +205,38 @@ use: {
 }
 ...
 ```
+# Plugins
+Plugins are similar to loaders, providing additional configuration to files. But plugins work at the bundle or chunk level and usually work at the end of the bundle generation process. Plugins can also modify how the bundles themselves are created. Plugins have more powerful control than loaders. [reference](https://stackoverflow.com/questions/37452402/webpack-loaders-vs-plugins-whats-the-difference#:~:text=Loaders%20work%20at%20the%20individual,of%20the%20bundle%20generation%20process.)
+
+## Terser as a plugin
+The following plugin will minify the JavaScript bundle .  Speeding up load time by refactoring.  The plugins property can imported and then configured as a new istance in ```webpack.config.js```
+
+
+
+```
+...
+const TerserPlugin = require('terser-webpack-plugin')
+
+...
+
+module.exports = {
+...
+    module: {
+        rules: [
+         { ... }
+        ]
+    },
+    plugins : [
+        new TerserPlugin()
+    ]
+}
+```
+All webpack plugins should be installed in development enviroment:
+```
+npm install terser-webpack-plugin -D
+```
+
+*note: as of Webpack 5, the Terser plugin in included by default, so it does not need to be installed in the step above. However it does need to be declared inside the ```webpack.config.js``` file.
 
 
 
