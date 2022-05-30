@@ -505,6 +505,29 @@ Webpack creates a seperate bundle for this package, it is smaller than the defau
 [repostiory](https://github.com/vp-online-courses/webpack-tutorial)
 
 
+# Webpack with Node/Express
+
+install express:
+```
+npm install -D express
+```
+and congure ``` server.js``` file:
+
+```
+const express = require('express')
+const app = express();
+
+app.get('/', (req, res) => {
+
+    res.send('Some dummy text')
+})
+const port = 3200
+app.listen(port, () => {
+    console.log(`application is running on http://localhost:${port}`)
+});
+```
+
+
 
 
 
