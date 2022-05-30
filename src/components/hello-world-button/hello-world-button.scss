@@ -1,0 +1,28 @@
+$button-text-color: white;
+$button-bg-color: chocolate;
+$secondary-text-color: grey;
+
+
+.hello-world-button {
+    border-radius: 5px;
+    border: 2px solid $button-bg-color;
+    font-size: 20px;
+    padding: 7px 15px;
+    background-color: $button-bg-color;
+    color: $button-text-color;
+    outline: none;
+}
+
+.hello-world-button:hover {
+    background-color: $button-text-color;
+    color: $button-bg-color;
+    border-color: $button-bg-color;
+    cursor: pointer;
+
+}
+
+.hello-world-text {
+    font-size: 20px;
+    font-weight: bold;
+    color: $secondary-text-color;
+}
