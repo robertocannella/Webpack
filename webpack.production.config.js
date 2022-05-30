@@ -12,7 +12,7 @@ webpackConfig = {
     output: {
         filename: '[name].[contenthash].js',
         path: path.resolve(__dirname, './dist'),
-        publicPath: ''
+        publicPath: '/static/'
     },
     mode: 'production',
     optimization: {
@@ -30,12 +30,6 @@ webpackConfig = {
             index: 'index.html',
             writeToDisk: true
         }
-    },
-    watch: true,
-    watchOptions: {
-        aggregateTimeout: 200,
-        poll: 1000,
-        ignored: /node_modules/,
     },
     module: {
         rules: [
