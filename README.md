@@ -440,9 +440,55 @@ Make ajustments to ```scripts``` within ```package.json```:
 ...
 ```
 
+# Multiple Page Applications
 
+## Extracting individual pages as bundles
 
+Each page will need its own instance of the HtmlWebpackPlugin along with additional configuration:
 
+* ```filename``` :name or full path to file
+* ```chucks``` :entry points to divide into chunks 
+
+```
+...
+    // Entry points are configured as an object when creating multiple entry points
+    entry: {
+        'hello-world': './src/hello-world.js',
+        'kiwi': './src/kiwi.js'
+    },
+
+...
+       new HtmlWebpackPlugin({
+            filename: 'hello-world.html',
+            chunks: ['hello-world'],                        // <-- name derived from entry points above
+            template: 'src/page-template.hbs',
+            title: 'Hello World!',
+            description: 'Some Description',
+            minify: false
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'kiwi.html',
+            chunks: ['kiwi'], // <-- name derived from entry points above
+            template: 'src/page-template.hbs',
+            title: 'Kiwi Page!',
+            description: 'Kiwi',
+            minify: false
+        })
+...
+```
+
+When creating Multiple Page Applications it is common to use a library in multiple files.  Loading these libraries (lodash for instance) inside each seperate bundle creates large bundles.  Webpack can be configured to create a singleton of this library and import it into each bundle accordingly.
+
+```
+...
+    mode: 'production',
+    optimization: {
+        splitChunks: {
+            chunks: 'all'
+        }
+    },
+...
+    ```
 
 
 

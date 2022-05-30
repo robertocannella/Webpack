@@ -2,14 +2,23 @@ const path = require('path'); // <-- needs to be common.js style import true as 
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+
 webpackConfig = {
-    entry: './src/index.js', // <-- Webpack will start from this file when running the build process.
-    output: {                // <-- Output file and directory,  will be created if it doesn't exist. 
-        filename: 'bundle.[contenthash].js',
-        path: path.resolve(__dirname, './dist'), // 
-        publicPath: './'
+    entry: {
+        'hello-world': './src/hello-world.js',
+        'kiwi': './src/kiwi.js'
+    },
+    output: {
+        filename: '[name].[contenthash].js',
+        path: path.resolve(__dirname, './dist'),
+        publicPath: ''
     },
     mode: 'development',
+    optimization: {
+        splitChunks: {
+            chunks: 'all'
+        }
+    },
     devServer: {
         port: 9000,
         static: {
@@ -30,7 +39,7 @@ webpackConfig = {
         rules: [
             {
                 test: /\.(png|jpg)$/,
-                type: 'asset/inline',
+                type: 'asset',
                 parser: {
                     dataUrlCondition: {
                         maxSize: 3 * 1024// 3 kilobytes
@@ -81,9 +90,20 @@ webpackConfig = {
 
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            template: 'src/index.hbs',
+            filename: 'hello-world.html',
+            chunks: ['hello-world'], // <-- name derived from entry points above
+            template: 'src/page-template.hbs',
             title: 'Hello World!',
-            description: 'Some Description'
+            description: 'Some Description',
+            minify: false
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'kiwi.html',
+            chunks: ['kiwi'], // <-- name derived from entry points above
+            template: 'src/page-template.hbs',
+            title: 'Kiwi Page!',
+            description: 'Kiwi',
+            minify: false
         })
     ]
 }
