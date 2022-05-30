@@ -145,7 +145,16 @@ rules: [
 ```
 ## asset/source
 
-with ```asset/source``` Webpack parse a text file as a string and injects it into the bundle as is.  This module type does not generate a new file in the ```dist/``` directory.
+with ```asset/source``` Webpack parse a text file as a string and injects it into the bundle as is.  This module type does not generate a new file in the ```dist/``` directory.  A new rule needs to be created instruct webpack on handling ```txt``` files:
+
+```
+...
+    {
+        test: /\.txt$/,
+        type: 'asset/source'
+    }
+...
+```
 
 
 
