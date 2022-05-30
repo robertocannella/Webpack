@@ -384,6 +384,65 @@ EJS is the default template engine that ships with webpack 5.  no rule needs to 
 ## [Additional plugins](https://webpack.js.org/plugins/)
 
 
+# Production / Development Builds
+
+Creating seperate files for prodcution and development allows for easier enviroment managment. Create two seperate config files and copy the contents from webpack.config.js into both:
+
+```webpack.developement.config.js```
+
+```webpack.production.config.js```
+
+The following items can be removed from ```webpack.production.config.js```:
+
+* TerserPlugin (import and declaration) as it is included by default in production builds.
+
+The following items can be removed from ```webpack.development.config.js```:
+* TerserPlugin (import and declaration) as it is minification is not necessary during development.
+* MiniCssExtractPlugin (import and declaration) as extraction isn't required for developement.
+
+Make ajustments to ```scripts``` within ```package.json```:
+```
+...
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.production.config.js",
+    "dev": "webpack --config webpack.development.config.js"
+...
+```
+## Addtional tools
+Webpack DevServer
+
+```
+npm i webpack-dev-server -D
+```
+
+```webpack.development.config.js```:
+```
+...
+    mode: 'development',
+    devServer: {
+        port: 9000,
+        static: {
+            directory: path.resolve(__dirname, './dist'), // 
+        },
+        devMiddleware: {
+            index: 'index.html',
+            writeToDisk: true
+        }
+    },
+    watch: true,
+...
+```
+Make ajustments to ```scripts``` within ```package.json```:
+```
+...
+    "dev": "webpack serve --config webpack.development.config.js --hot"
+
+...
+```
+
+
+
+
 
 
 

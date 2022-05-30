@@ -1,6 +1,4 @@
 const path = require('path'); // <-- needs to be common.js style import true as of Webpack 5.  
-const TerserPlugin = require('terser-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -11,7 +9,17 @@ webpackConfig = {
         path: path.resolve(__dirname, './dist'), // 
         publicPath: './'
     },
-    mode: 'none',
+    mode: 'development',
+    devServer: {
+        port: 9000,
+        static: {
+            directory: path.resolve(__dirname, './dist'), // 
+        },
+        devMiddleware: {
+            index: 'index.html',
+            writeToDisk: true
+        }
+    },
     watch: true,
     watchOptions: {
         aggregateTimeout: 200,
@@ -38,7 +46,7 @@ webpackConfig = {
                 test: /\.s[ac]ss$/i,
                 use: [
                     // Creates `style` nodes from JS strings
-                    MiniCssExtractPlugin.loader,
+                    "style-loader",
                     // Translates CSS into CommonJS
                     "css-loader",
                     // Compiles Sass to CSS
@@ -70,10 +78,7 @@ webpackConfig = {
         ]
     },
     plugins: [
-        new TerserPlugin(),
-        new MiniCssExtractPlugin({
-            filename: 'styles.[contenthash].css'
-        }),
+
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: 'src/index.hbs',
