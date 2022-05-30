@@ -1,11 +1,15 @@
 const path = require('path'); // <-- needs to be common.js style import true as of Webpack 5.  
+const TerserPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = {
+webpackConfig = {
     entry: './src/index.js', // <-- Webpack will start from this file when running the build process.
     output: {                // <-- Output file and directory,  will be created if it doesn't exist. 
-        filename: 'bundle.js',
+        filename: 'bundle.[contenthash].js',
         path: path.resolve(__dirname, './dist'), // 
-        publicPath: 'dist/'
+        publicPath: './'
     },
     mode: 'none',
     watch: true,
@@ -34,7 +38,7 @@ module.exports = {
                 test: /\.s[ac]ss$/i,
                 use: [
                     // Creates `style` nodes from JS strings
-                    "style-loader",
+                    MiniCssExtractPlugin.loader,
                     // Translates CSS into CommonJS
                     "css-loader",
                     // Compiles Sass to CSS
@@ -56,7 +60,26 @@ module.exports = {
                             ]
                     }
                 }
+            },
+            {
+                test: /\.hbs$/,
+                use: [
+                    'handlebars-loader'
+                ]
             }
         ]
-    }
+    },
+    plugins: [
+        new TerserPlugin(),
+        new MiniCssExtractPlugin({
+            filename: 'styles.[contenthash].css'
+        }),
+        new CleanWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            template: 'src/index.hbs',
+            title: 'Hello World!',
+            description: 'Some Description'
+        })
+    ]
 }
+module.exports = webpackConfig;

@@ -205,6 +205,187 @@ use: {
 }
 ...
 ```
+# Plugins
+Plugins are similar to loaders, providing additional configuration to files. But plugins work at the bundle or chunk level and usually work at the end of the bundle generation process. Plugins can also modify how the bundles themselves are created. Plugins have more powerful control than loaders. [reference](https://stackoverflow.com/questions/37452402/webpack-loaders-vs-plugins-whats-the-difference#:~:text=Loaders%20work%20at%20the%20individual,of%20the%20bundle%20generation%20process.)
+
+## Terser as a plugin
+The following plugin will minify the JavaScript bundle .  Speeding up load time by refactoring.  The plugins property can imported and then configured as a new istance in ```webpack.config.js```
+
+
+
+```
+...
+const TerserPlugin = require('terser-webpack-plugin')
+
+...
+
+module.exports = {
+...
+    module: {
+        rules: [
+         { ... }
+        ]
+    },
+    plugins : [
+        new TerserPlugin()
+    ]
+}
+```
+All webpack plugins should be installed in development enviroment:
+```
+npm install terser-webpack-plugin -D
+```
+
+*note: as of Webpack 5, the Terser plugin in included by default, so it does not need to be installed in the step above. However it does need to be declared inside the ```webpack.config.js``` file.
+
+##  MiniCssExtract as a plugin
+
+To extract CSS into a different file upon packing, install following plugin:
+```
+npm i mini-css-extract-plugin -D 
+```
+Then add declarations to ```webpack.config.js```.  Note that we can specify the filename to be created by passing an object to the instance:
+```
+...
+const TerserPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+...
+    plugins : [
+        new TerserPlugin(),
+        new MiniCssExtractPlugin({
+            filename: 'styles.css'
+        })
+    ]
+...
+```
+
+## Clean plugin for webpack
+
+Browser cache can be managed by applying MD5 hash to the filename during packing:
+```
+...
+    output: {     
+        filename: 'bundle.[contenthash].js',
+        path: path.resolve(__dirname, './dist'), // 
+        publicPath: 'dist/'
+    },
+...
+...
+    plugins: [
+        new TerserPlugin(),
+        new MiniCssExtractPlugin({
+            filename: 'styles.[contenthash].css'
+        })
+    ]
+...
+```
+Doing this creates a new file name when code changes have be made.  However, this will clog the ```dist/``` directory with older version of the file.   Utilizing the ```clean``` plugin will clear the ```dist/``` directory prior to executing a build:
+
+```
+npm install --save-dev clean-webpack-plugin
+```
+```
+...
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
+...
+
+    plugins: [
+        new TerserPlugin(),
+        new MiniCssExtractPlugin({
+            filename: 'styles.[contenthash].css'
+        }),
+        new CleanWebpackPlugin()
+    ]
+```
+
+Generating these filenames programatically mean the reference in ```index.html``` needs to be updated as well.   To resolve this, webpack can generate the ```index.html``` file during packing:
+
+## Html Webpack Plugin
+This plugin generates an ```index.html``` file programatically.  Useful when generating filenames with MD5 hash.
+
+```
+npm install --save-dev html-webpack-plugin
+```
+```
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+...
+
+    plugins: [
+            ...,         
+        new HtmlWebpackPlugin()
+    ]
+```
+* note when implementing this plugin, the publicPath needs to be changed to an empty string: 
+```
+    publicPath: ''
+
+```
+Webpack will generate an index.html file within the ```dist/``` folder containing the correct bundle filename references.  The following plugin allows for customizing variables using a template engine.
+
+## Template Engine as plugin
+### Handlebars
+
+Install handlebars-loader as devDependency
+```
+npm i -D handlebars-loader
+npm i -save handlebars
+```
+
+Adding support for Handlbars requires adding ```hbs``` rule to ```webpack.config.js```. This allows us to create variables for the HtmlWebpackPlugin to pass to the file:
+
+```
+...
+{
+    test: /\.hbs$/,
+    use: [
+        'handlebars-loader'
+    ]
+}
+...
+...
+        new HtmlWebpackPlugin({
+            template: 'src/index.hbs',
+            title: 'Hello World!',
+            description: 'Some Description'
+        })
+...
+```
+Consuming these variable can be done inside ```src/index.hbs```:
+```
+...
+    <title>{{ htmlWebpackPlugin.options.title }}</title>
+    <meta name="description" content="{{htmlWebpackPlugin.options.description}}">
+...
+```
+### EJS
+EJS is the default template engine that ships with webpack 5.  no rule needs to be setup,  only a reference to the file inside the HtmlWebpackPlugin object:
+
+```webpack.config.js```:
+```
+...
+        new HtmlWebpackPlugin({
+            template: 'src/index.ejs',
+            title: 'Hello World!',
+            description: 'Some Description'
+        })
+...
+```
+```index.ejs```:
+```
+...
+    <title>
+        <%=htmlWebpackPlugin.options.title %>
+    </title>
+    <meta name="description" content="<%= htmlWebpackPlugin.options.description %>">
+...
+```
+
+## [Additional plugins](https://webpack.js.org/plugins/)
+
+
+
+
 
 
 
