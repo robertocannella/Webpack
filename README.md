@@ -125,7 +125,7 @@ module: {
         }
     ]
 ```
-# asset (General Type)
+# asset (general module type)
 
 Using this value for the ```type``` property in the ```webpack.config.js``` file allows for automictic determination of storing an asset as ```resource``` or ```inline```.  The defualt boundary is 8 kilobytes.  This is configuarable:
 
@@ -143,6 +143,13 @@ rules: [
     }
 ...
 ```
+## asset/source
+
+with ```asset/source``` Webpack parse a text file as a string and injects it into the bundle as is.  This module type does not generate a new file in the ```dist/``` directory.
+
+
+
+
 
 
 
