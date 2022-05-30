@@ -11,7 +11,7 @@ webpackConfig = {
         path: path.resolve(__dirname, './dist'), // 
         publicPath: './'
     },
-    mode: 'development',
+    mode: 'production',
     watch: true,
     watchOptions: {
         aggregateTimeout: 200,
@@ -70,7 +70,6 @@ webpackConfig = {
         ]
     },
     plugins: [
-        new TerserPlugin(),
         new MiniCssExtractPlugin({
             filename: 'styles.[contenthash].css'
         }),

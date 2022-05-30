@@ -384,6 +384,26 @@ EJS is the default template engine that ships with webpack 5.  no rule needs to 
 ## [Additional plugins](https://webpack.js.org/plugins/)
 
 
+# Production / Development Builds
+
+Creating seperate files for prodcution and development allows for easier enviroment managment. Create two seperate config files and copy the contents from webpack.config.js into both:
+
+```webpack.developement.config.js```
+
+```webpack.production.config.js```
+
+The following items can be removed from ```webpack.production.config.js```:
+
+* TerserPlugin (import and declaration) as it is included by default in production builds.
+
+The following items can be removed from ```webpack.development.config.js```:
+* TerserPlugin (import and declaration) as it is minification is not necessary during development.
+* MiniCssExtractPlugin (import and declaration) as extraction isn't required for developement.
+
+
+
+
+
 
 
 
