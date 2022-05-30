@@ -238,6 +238,26 @@ npm install terser-webpack-plugin -D
 
 *note: as of Webpack 5, the Terser plugin in included by default, so it does not need to be installed in the step above. However it does need to be declared inside the ```webpack.config.js``` file.
 
+##  MiniCssExtract as a plugin
+
+To extract CSS into a different file upon packing, install following plugin:
+```
+npm i mini-css-extract-plugin -D 
+```
+Then add declarations to ```webpack.config.js```.  Note that we can specify the filename to be created by passing an object to the instance:
+```
+...
+const TerserPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+...
+    plugins : [
+        new TerserPlugin(),
+        new MiniCssExtractPlugin({
+            filename: 'styles.css'
+        })
+    ]
+...
+```
 
 
 
