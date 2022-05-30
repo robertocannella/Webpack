@@ -158,8 +158,7 @@ with ```asset/source``` Webpack parse a text file as a string and injects it int
 
 # Loaders
 
-Loaders allow importing of addition types of files.  Including CSS and SASS.  
-TODO: add more filetypes.
+Loaders allow importing of addition types of files.  Including CSS, SASS and Newer JavaScript Code(babel)
 
 Loaders need to be installed as seperate npm packages as they are not included with Webpack by default:
 
@@ -180,7 +179,32 @@ Once the loaders are installed, a rule can be added to ```webpack.config.js``` f
 
 Here the loaders are chained.  The order is important as the chain is executed in reverse.  In the example above the css is parsed with the ```css-loader```, then it's passed to ```style-loader``` for processing.  
 
+## Babel loader
 
+This package allows transpiling JavaScript files using Babel and webpack.  Essentially giving the developer the option to use newer JavaScript features when developing.  Install the core ```babel-loader```:
+
+```
+ npm install -D babel-loader @babel/core @babel/preset-env
+```
+For every @babel plugin implemented, it's package needs to be installed and can be referenced in the ```plugin``` key:
+
+```
+...
+test: /\.m?js$/,
+exclude: /(node_modules|bower_components)/,
+use: {
+    loader: 'babel-loader',
+    options: {
+        presets: ['@babel/preset-env'],
+        plugins:
+            [
+                '@babel/plugin-proposal-class-properties',
+                '@babel/plugin-proposal-object-rest-spread'
+            ]
+    }
+}
+...
+```
 
 
 
