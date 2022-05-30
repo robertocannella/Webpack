@@ -400,6 +400,45 @@ The following items can be removed from ```webpack.development.config.js```:
 * TerserPlugin (import and declaration) as it is minification is not necessary during development.
 * MiniCssExtractPlugin (import and declaration) as extraction isn't required for developement.
 
+Make ajustments to ```scripts``` within ```package.json```:
+```
+...
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.production.config.js",
+    "dev": "webpack --config webpack.development.config.js"
+...
+```
+## Addtional tools
+Webpack DevServer
+
+```
+npm i webpack-dev-server -D
+```
+
+```webpack.development.config.js```:
+```
+...
+    mode: 'development',
+    devServer: {
+        port: 9000,
+        static: {
+            directory: path.resolve(__dirname, './dist'), // 
+        },
+        devMiddleware: {
+            index: 'index.html',
+            writeToDisk: true
+        }
+    },
+    watch: true,
+...
+```
+Make ajustments to ```scripts``` within ```package.json```:
+```
+...
+    "dev": "webpack serve --config webpack.development.config.js --hot"
+
+...
+```
 
 
 

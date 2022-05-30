@@ -10,6 +10,16 @@ webpackConfig = {
         publicPath: './'
     },
     mode: 'development',
+    devServer: {
+        port: 9000,
+        static: {
+            directory: path.resolve(__dirname, './dist'), // 
+        },
+        devMiddleware: {
+            index: 'index.html',
+            writeToDisk: true
+        }
+    },
     watch: true,
     watchOptions: {
         aggregateTimeout: 200,
