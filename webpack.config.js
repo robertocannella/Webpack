@@ -60,6 +60,12 @@ webpackConfig = {
                             ]
                     }
                 }
+            },
+            {
+                test: /\.hbs$/,
+                use: [
+                    'handlebars-loader'
+                ]
             }
         ]
     },
@@ -69,7 +75,11 @@ webpackConfig = {
             filename: 'styles.[contenthash].css'
         }),
         new CleanWebpackPlugin(),
-        new HtmlWebpackPlugin()
+        new HtmlWebpackPlugin({
+            template: 'src/index.hbs',
+            title: 'Hello World!',
+            description: 'Some Description'
+        })
     ]
 }
 module.exports = webpackConfig;

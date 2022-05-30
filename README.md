@@ -323,6 +323,66 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 ```
 Webpack will generate an index.html file within the ```dist/``` folder containing the correct bundle filename references.  The following plugin allows for customizing variables using a template engine.
 
+## Template Engine as plugin
+### Handlebars
+
+Install handlebars-loader as devDependency
+```
+npm i -D handlebars-loader
+npm i -save handlebars
+```
+
+Adding support for Handlbars requires adding ```hbs``` rule to ```webpack.config.js```. This allows us to create variables for the HtmlWebpackPlugin to pass to the file:
+
+```
+...
+{
+    test: /\.hbs$/,
+    use: [
+        'handlebars-loader'
+    ]
+}
+...
+...
+        new HtmlWebpackPlugin({
+            template: 'src/index.hbs',
+            title: 'Hello World!',
+            description: 'Some Description'
+        })
+...
+```
+Consuming these variable can be done inside ```src/index.hbs```:
+```
+...
+    <title>{{ htmlWebpackPlugin.options.title }}</title>
+    <meta name="description" content="{{htmlWebpackPlugin.options.description}}">
+...
+```
+### EJS
+EJS is the default template engine that ships with webpack 5.  no rule needs to be setup,  only a reference to the file inside the HtmlWebpackPlugin object:
+
+```webpack.config.js```:
+```
+...
+        new HtmlWebpackPlugin({
+            template: 'src/index.ejs',
+            title: 'Hello World!',
+            description: 'Some Description'
+        })
+...
+```
+```index.ejs```:
+```
+...
+    <title>
+        <%=htmlWebpackPlugin.options.title %>
+    </title>
+    <meta name="description" content="<%= htmlWebpackPlugin.options.description %>">
+...
+```
+
+
+
 
 
 
