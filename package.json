@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.production.config.js",
-    "dev": "webpack serve --config webpack.development.config.js --hot"
+    "dev": "webpack serve --config webpack.development.config.js --hot",
+    "prod": "webpack serve --config webpack.production.config.js --hot"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,7 @@
     "handlebars": "^4.7.7",
     "handlebars-loader": "^1.7.2",
     "html-webpack-plugin": "^5.5.0",
+    "image-webpack-loader": "^8.1.0",
     "mini-css-extract-plugin": "^2.6.0",
     "sass": "^1.52.1",
     "sass-loader": "^13.0.0",
@@ -38,5 +40,9 @@
     "webpack": "^5.72.1",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.9.0"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "react": "^18.1.0"
   }
 }
