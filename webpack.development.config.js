@@ -9,7 +9,7 @@ webpackConfig = {
         'kiwi': './src/kiwi.js'
     },
     output: {
-        filename: '[name].[contenthash].js',
+        filename: '[name].js', 
         path: path.resolve(__dirname, './dist'),
         publicPath: ''
     },

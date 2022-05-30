@@ -17,7 +17,8 @@ webpackConfig = {
     mode: 'production',
     optimization: {
         splitChunks: {
-            chunks: 'all'
+            chunks: 'all',
+            minSize: 1200
         }
     },
     devServer: {

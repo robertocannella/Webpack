@@ -440,7 +440,7 @@ Make ajustments to ```scripts``` within ```package.json```:
 ...
 ```
 
-# Multiple Page Applications
+# Multiple Page Applications (libraries)
 
 ## Extracting individual pages as bundles
 
@@ -488,7 +488,29 @@ When creating Multiple Page Applications it is common to use a library in multip
         }
     },
 ...
-    ```
+```
+Webpack creates a seperate bundle for this package, it is smaller than the default 30kb.  Importing a smaller libray (React) will include these libraries into each file.  This can be configured:
+
+```
+...
+    optimization: {
+        splitChunks: {
+            chunks: 'all',
+            minSize: 3000 
+        }
+    },
+...
+```
+
+
+
+
+
+
+
+
+
+
 
 
 
