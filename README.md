@@ -501,6 +501,8 @@ Webpack creates a seperate bundle for this package, it is smaller than the defau
     },
 ...
 ```
+# GitHub Repository
+[repostiory](https://github.com/vp-online-courses/webpack-tutorial)
 
 
 
