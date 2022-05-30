@@ -381,6 +381,9 @@ EJS is the default template engine that ships with webpack 5.  no rule needs to 
 ...
 ```
 
+## [Additional plugins](https://webpack.js.org/plugins/)
+
+
 
 
 
