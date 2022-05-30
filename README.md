@@ -111,6 +111,22 @@ In previous verions the ```publicPath``` property was listed as an empty string 
 
 ```
 
+# asset/inline
+
+Generates a base64 represention of the file being imported and bakes it directly into the bundle.  This is helpful for importing SVG as inline code. Using this approach limites HTTP requests for small files.
+
+```
+module: {
+    rules: [
+        {
+            test: /\.(png|jpeg)$/,
+            type: 'asset/inline'
+            publicPath: 'dist/'
+        }
+    ]
+```
+
+
 
 
 
