@@ -1,13 +1,15 @@
 const path = require('path'); // <-- needs to be common.js style import true as of Webpack 5.  
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = {
+webpackConfig = {
     entry: './src/index.js', // <-- Webpack will start from this file when running the build process.
     output: {                // <-- Output file and directory,  will be created if it doesn't exist. 
-        filename: 'bundle.js',
+        filename: 'bundle.[contenthash].js',
         path: path.resolve(__dirname, './dist'), // 
-        publicPath: 'dist/'
+        publicPath: './'
     },
     mode: 'none',
     watch: true,
@@ -61,10 +63,13 @@ module.exports = {
             }
         ]
     },
-    plugins : [
+    plugins: [
         new TerserPlugin(),
         new MiniCssExtractPlugin({
-            filename: 'styles.css'
-        })
+            filename: 'styles.[contenthash].css'
+        }),
+        new CleanWebpackPlugin(),
+        new HtmlWebpackPlugin()
     ]
 }
+module.exports = webpackConfig;

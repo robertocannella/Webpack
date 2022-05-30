@@ -259,6 +259,72 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 ...
 ```
 
+## Clean plugin for webpack
+
+Browser cache can be managed by applying MD5 hash to the filename during packing:
+```
+...
+    output: {     
+        filename: 'bundle.[contenthash].js',
+        path: path.resolve(__dirname, './dist'), // 
+        publicPath: 'dist/'
+    },
+...
+...
+    plugins: [
+        new TerserPlugin(),
+        new MiniCssExtractPlugin({
+            filename: 'styles.[contenthash].css'
+        })
+    ]
+...
+```
+Doing this creates a new file name when code changes have be made.  However, this will clog the ```dist/``` directory with older version of the file.   Utilizing the ```clean``` plugin will clear the ```dist/``` directory prior to executing a build:
+
+```
+npm install --save-dev clean-webpack-plugin
+```
+```
+...
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
+...
+
+    plugins: [
+        new TerserPlugin(),
+        new MiniCssExtractPlugin({
+            filename: 'styles.[contenthash].css'
+        }),
+        new CleanWebpackPlugin()
+    ]
+```
+
+Generating these filenames programatically mean the reference in ```index.html``` needs to be updated as well.   To resolve this, webpack can generate the ```index.html``` file during packing:
+
+## Html Webpack Plugin
+This plugin generates an ```index.html``` file programatically.  Useful when generating filenames with MD5 hash.
+
+```
+npm install --save-dev html-webpack-plugin
+```
+```
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+...
+
+    plugins: [
+            ...,         
+        new HtmlWebpackPlugin()
+    ]
+```
+* note when implementing this plugin, the publicPath needs to be changed to an empty string: 
+```
+    publicPath: ''
+
+```
+Webpack will generate an index.html file within the ```dist/``` folder containing the correct bundle filename references.  The following plugin allows for customizing variables using a template engine.
+
+
+
 
 
 
