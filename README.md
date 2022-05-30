@@ -125,6 +125,24 @@ module: {
         }
     ]
 ```
+# asset (General Type)
+
+Using this value for the ```type``` property in the ```webpack.config.js``` file allows for automictic determination of storing an asset as ```resource``` or ```inline```.  The defualt boundary is 8 kilobytes.  This is configuarable:
+
+```
+...
+rules: [
+    {
+        test: /\.(png|jpg)$/,
+        type: 'asset/inline',
+        parser: {
+            dataUrlCondition: {
+                maxSize: 3 * 1024// 3 kilobytes
+            }
+        }
+    }
+...
+```
 
 
 
