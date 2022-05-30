@@ -4,7 +4,8 @@ module.exports = {
     entry: './src/index.js', // <-- Webpack will start from this file when running the build process.
     output: {                // <-- Output file and directory,  will be created if it doesn't exist. 
         filename: 'bundle.js',
-        path: path.resolve(__dirname, './dist') // 
+        path: path.resolve(__dirname, './dist'), // 
+        publicPath: 'dist/'
     },
     mode: 'none',
     module: {

@@ -82,7 +82,7 @@ Inside the ```index.html``` file, point the script src to this ```bundle.js``` f
 * asset - using webpack config set to automatic generation of resource or inline type asset
 * asset/source - add string of text to ```bundel.js```
 
-## Asset Resource:
+## asset/resource:
 Importing images
 
 For webpack to import images (or any file type), a rule needs to be added to the ```webpack.config.js``` file:
@@ -97,6 +97,20 @@ module: {
     ]
 ```
 Here, the module property takes a ```rules``` value which declares how webpack handles importing certain file types(using regex). 
+
+
+### Specifying a public path
+In previous verions the ```publicPath``` property was listed as an empty string ```' '```.  This required additional configuration. Webpack 5 automatically configures the publicPath using ```'auto'```.  This defualts to the full url of the file.  The ```publicPath``` property is helpful when using CDNs.  Added the following ```publicPath``` value to the configuration file:
+
+```
+...
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, './dist'),
+    publicPath: 'dist/'
+...
+
+```
+
 
 
 
