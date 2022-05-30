@@ -506,7 +506,7 @@ Webpack creates a seperate bundle for this package, it is smaller than the defau
 
 
 # Webpack with Node/Express
-
+## Setup Express Server
 install express:
 ```
 npm install -D express
@@ -527,7 +527,10 @@ app.listen(port, () => {
 });
 ```
 
-
+The express static file method will allow for serving of static files.  
+```
+app.use('/static', express.static(path.resolve(__dirname, '../dist')));
+```
 
 
 
