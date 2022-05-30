@@ -1,0 +1,12 @@
+.hello-world-button {
+    font-size: 20px;
+    padding: 7px 15px;
+    background-color: chocolate;
+    color: white;
+    outline: none;
+}
+.hello-world-text {
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(97, 3, 97);
+}

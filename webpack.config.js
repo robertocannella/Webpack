@@ -8,6 +8,12 @@ module.exports = {
         publicPath: 'dist/'
     },
     mode: 'none',
+    watch: true,
+    watchOptions: {
+        aggregateTimeout: 200,
+        poll: 1000,
+        ignored: /node_modules/,
+    },
     module: {
         rules: [
             {
@@ -23,6 +29,13 @@ module.exports = {
             {
                 test: /\.txt$/,
                 type: 'asset/source'
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    'css-loader'
+                ]
             }
         ]
     }

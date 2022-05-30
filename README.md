@@ -34,7 +34,7 @@ Initialize npm package manager:
 ```
 npm init -y 
 ```
-Install Webpack and Webpack CLI as a development dependencies:
+Install Webpack and Webpack CLI as development dependencies:
 ```
 npm install -D webpack webpack-cli
 ```
@@ -127,7 +127,7 @@ module: {
 ```
 # asset (general module type)
 
-Using this value for the ```type``` property in the ```webpack.config.js``` file allows for automictic determination of storing an asset as ```resource``` or ```inline```.  The defualt boundary is 8 kilobytes.  This is configuarable:
+Using this value for the ```type``` property in the ```webpack.config.js``` file allows for automatic determination of storing an asset as ```resource``` or ```inline```.  The defualt boundary is 8 kilobytes.  This is configuarable:
 
 ```
 ...
@@ -155,6 +155,31 @@ with ```asset/source``` Webpack parse a text file as a string and injects it int
     }
 ...
 ```
+
+# Loaders
+
+Loaders allow importing of addition types of files.  Including CSS and SASS.  
+TODO: add more filetypes.
+
+Loaders need to be installed as seperate npm packages as they are not included with Webpack by default:
+
+```
+npm install --save-dev style-loader css-loader
+```
+Once the loaders are installed, a rule can be added to ```webpack.config.js``` for the specific file type.  Note the use of the keyword ```use``` for loaders vs ```type``` for assets.
+
+```
+{
+    test: /\.css$/,
+    use: [
+        'style-loader',
+        'css-loader'
+    ]
+}
+```
+
+Here the loaders are chained.  The order is important as the chain is executed in reverse.  In the example above the css is parsed with the ```css-loader```, then it's passed to ```style-loader``` for processing.  
+
 
 
 
