@@ -11,7 +11,7 @@ webpackConfig = {
         path: path.resolve(__dirname, './dist'), // 
         publicPath: './'
     },
-    mode: 'none',
+    mode: 'development',
     watch: true,
     watchOptions: {
         aggregateTimeout: 200,
